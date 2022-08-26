@@ -67,6 +67,7 @@ function mainMenu(person, people) {
             //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
             // HINT: Look for a person-object stringifier utility function to help
             let personInfo = displayPerson(person[0]);
+            console.log(personInfo)
             alert(personInfo);
             break;
         case "family":
@@ -154,7 +155,7 @@ function displayPerson(person) {
     personInfo += `Occupation: ${person.occupation}\n`;
 
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
-    alert(personInfo);
+    return personInfo;
 }
 // End of displayPerson()
 
