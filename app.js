@@ -199,6 +199,12 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
+
+function infoFamilyDescendantsRestartQuit(input) {
+    return input.toLowerCase() === "info" || input.toLowerCase() === "family" || input.toLowerCase() === "descendants" || input.toLowerCase() === "restart" || input.toLowerCase() === "quit";
+}
+
+
 function findSiblings(person, people) {
     let newArray = people.filter(function(el) {
         if (person.id == el.id) {
