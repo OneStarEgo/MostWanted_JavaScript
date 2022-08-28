@@ -199,12 +199,6 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-
-function infoFamilyDescendantsRestartQuit(input) {
-    return input.toLowerCase() === "info" || input.toLowerCase() === "family" || input.toLowerCase() === "descendants" || input.toLowerCase() === "restart" || input.toLowerCase() === "quit";
-}
-
-
 function findSiblings(person, people) {
     let newArray = people.filter(function(el) {
         if (person.id == el.id) {
@@ -259,3 +253,85 @@ function findPersonFamily(person, people) {
     }
     return newArray;
 }
+
+function displayGender(people) {
+    let gender = parseInt(promptFor("What is the person's gender?", chars));
+    let genderFilteredArray = people.filter(function(el){
+        if(el.gender === gender) {
+            return true;        }
+    });
+    return genderFilteredArray;
+}
+
+
+
+
+function searchByTraits(people) {
+    if (!people[0]) {
+        alert("Couldn't find anyone with those traits.");
+        return app(people);
+    }
+    let traitOption = prompt(
+        "Do you know their 'gender', 'dob', 'height', 'weight', 'eye color', or 'occupation'?\nType the option you want or type 'restart' or 'quit'."
+    );
+    switch (traitOption) {
+        case "gender":
+            let genderSearch = promptFor("Do you want to search by gender?\nType yes or no: ", yesNo).toLowerCase();
+            switch(genderSearch) {
+                case "yes":
+                    let findGender = displayGender(people);
+                    return findGender;
+                case "no":
+                    return people;
+                default:
+                    searchByTraits(people);
+                    break;
+            }
+    }
+}
+
+function mainMenu(person, people) {
+    // A check to verify a person was found via searchByName() or searchByTrait()
+    if (!person[0]) {
+        alert("Could not find that individual.");
+        // Restarts app() from the very beginning
+        return app(people);
+    }
+    let displayOption = prompt(
+        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
+    );
+    // Routes our application based on the user's input
+    switch (displayOption) {
+        case "info":
+            //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
+            // HINT: Look for a person-object stringifier utility function to help
+            let personInfo = displayPerson(person[0]);
+            console.log(personInfo)
+            alert(personInfo);
+            break;
+        case "family":
+            //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
+            // HINT: Look for a people-collection stringifier utility function to help
+            let personFamily = findPersonFamily(person[0], people);
+            console.log(personFamily)
+            alert(personFamily);
+            break;
+        case "descendants":
+            //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
+            // HINT: Review recursion lecture + demo for bonus user story
+            let personDescendants = findPersonDescendants(person[0], people);
+            alert(personDescendants);
+            break;
+        case "restart":
+            // Restart app() from the very beginning
+            app(people);
+            break;
+        case "quit":
+            // Stop application execution
+            return;
+        default:
+            // Prompt user again. Another instance of recursion
+            return mainMenu(person, people);
+    }
+}
+// End of mainMenu()
