@@ -255,83 +255,41 @@ function findPersonFamily(person, people) {
 }
 
 function displayGender(people) {
-    let gender = parseInt(promptFor("What is the person's gender?", chars));
-    let genderFilteredArray = people.filter(function(el){
-        if(el.gender === gender) {
-            return true;        }
-    });
+    let userInput = promptFor("What is the person's gender?", chars);
+    let genderFilteredArray = "";
+
+    if(userInput != null){
+        for(let i = 0; i < people.length; i ++){
+            genderFilteredArray += `males: ${people[i].gender}\n`
+        }
+    }
     return genderFilteredArray;
 }
 
 
 
 
-function searchByTraits(people) {
-    if (!people[0]) {
-        alert("Couldn't find anyone with those traits.");
-        return app(people);
-    }
-    let traitOption = prompt(
-        "Do you know their 'gender', 'dob', 'height', 'weight', 'eye color', or 'occupation'?\nType the option you want or type 'restart' or 'quit'."
-    );
-    switch (traitOption) {
-        case "gender":
-            let genderSearch = promptFor("Do you want to search by gender?\nType yes or no: ", yesNo).toLowerCase();
-            switch(genderSearch) {
-                case "yes":
-                    let findGender = displayGender(people);
-                    return findGender;
-                case "no":
-                    return people;
-                default:
-                    searchByTraits(people);
-                    break;
-            }
-    }
-}
 
-function mainMenu(person, people) {
-    // A check to verify a person was found via searchByName() or searchByTrait()
-    if (!person[0]) {
-        alert("Could not find that individual.");
-        // Restarts app() from the very beginning
-        return app(people);
+function searchByTraits(people) {
+    let traits = "";
+    let filteredList;
+
+    filteredList = displayGender(people);
+    filteredList = searchByDob();
+    filteredList = searchByHeight();
+    filteredList = searchByWeight();
+    filteredList = searchByEyeColor();
+    filteredList = searchByOccupation();
+
+    if (filteredList.length === 22) {
+        alert("Found no one to display.");
+    } else if(filteredList.length === 0) {
+        alert("Found no one to display");
+    } else {
+        for(let i = 0; i < filteredList.length; i++) {
+            listed += filteredList[i].firstName + " " + filteredList[i].lastName + ".";
+        }
+        alert(traits)
     }
-    let displayOption = prompt(
-        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
-    );
-    // Routes our application based on the user's input
-    switch (displayOption) {
-        case "info":
-            //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
-            // HINT: Look for a person-object stringifier utility function to help
-            let personInfo = displayPerson(person[0]);
-            console.log(personInfo)
-            alert(personInfo);
-            break;
-        case "family":
-            //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
-            // HINT: Look for a people-collection stringifier utility function to help
-            let personFamily = findPersonFamily(person[0], people);
-            console.log(personFamily)
-            alert(personFamily);
-            break;
-        case "descendants":
-            //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
-            // HINT: Review recursion lecture + demo for bonus user story
-            let personDescendants = findPersonDescendants(person[0], people);
-            alert(personDescendants);
-            break;
-        case "restart":
-            // Restart app() from the very beginning
-            app(people);
-            break;
-        case "quit":
-            // Stop application execution
-            return;
-        default:
-            // Prompt user again. Another instance of recursion
-            return mainMenu(person, people);
-    }
+    app(people);
 }
-// End of mainMenu()
