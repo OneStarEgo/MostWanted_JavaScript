@@ -304,7 +304,31 @@ function searchByDob(people) {
     }
 }
 
-function 
+function lookUpHeight(people) {
+    let userInput = promptFor("What is the Height of the person?", chars);
+    let heightFilteredArray = people.filter(function(el){
+        if(el.height === userInput){
+            return true;
+        }
+    });
+    return heightFilteredArray;
+}
+
+function searchByHeight(people) {
+    let heightSearch = promptFor("Would you like to search by height? Enter yes or no.", yesNo).toLowerCase();
+
+    switch(heightSearch){
+        case "yes":
+            let filterByHeight = lookUpHeight(people);
+            return filterByHeight;
+        case "no":
+            return people;
+        default:
+            searchByHeight(people);
+            break;
+    }
+}
+
 
 function searchByTraits(people) {
     let traits = "";
