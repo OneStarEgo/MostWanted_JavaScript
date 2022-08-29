@@ -254,16 +254,29 @@ function findPersonFamily(person, people) {
     return newArray;
 }
 
-function displayGender(people) {
+function lookUpGender(people) {
     let userInput = promptFor("What is the person's gender?", chars);
-    let genderFilteredArray = "";
-
-    if(userInput != null){
-        for(let i = 0; i < people.length; i ++){
-            genderFilteredArray += `males: ${people[i].gender}\n`
+    let genderFilteredArray = people.filter(function(el){
+        if(el.gender === userInput) {
+            return true;
         }
-    }
+    });
     return genderFilteredArray;
+}
+
+function searchByGender(people) {
+    let genderSearch = promptFor("Would you like to search by gender? Enter yes or no.", yesNo).toLowerCase();
+
+    switch(genderSearch) {
+        case "yes":
+            let filterByGender = lookUpGender(people);
+            return filterByGender;
+        case "no":
+            return people;
+        default:
+            searchByGender(people);
+            break;
+    }
 }
 
 
@@ -274,7 +287,7 @@ function searchByTraits(people) {
     let traits = "";
     let filteredList;
 
-    filteredList = displayGender(people);
+    filteredList = searchByGender(people);
     filteredList = searchByDob();
     filteredList = searchByHeight();
     filteredList = searchByWeight();
