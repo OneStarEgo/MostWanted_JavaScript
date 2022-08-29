@@ -257,7 +257,7 @@ function findPersonFamily(person, people) {
 function lookUpGender(people) {
     let userInput = promptFor("What is the person's gender?", chars);
     let genderFilteredArray = people.filter(function(el){
-        if(el.gender === userInput) {
+        if(el.gender === userInput){
             return true;
         }
     });
@@ -267,7 +267,7 @@ function lookUpGender(people) {
 function searchByGender(people) {
     let genderSearch = promptFor("Would you like to search by gender? Enter yes or no.", yesNo).toLowerCase();
 
-    switch(genderSearch) {
+    switch(genderSearch){
         case "yes":
             let filterByGender = lookUpGender(people);
             return filterByGender;
@@ -279,20 +279,43 @@ function searchByGender(people) {
     }
 }
 
+function lookUpDob(people) {
+    let userInput = promptFor("What is the person's date of birth?", chars);
+    let dobFilteredArray = people.filter(function(el){
+        if(el.dob === userInput){
+            return true;
+        }
+    });
+    return dobFilteredArray;
+}
 
+function searchByDob(people) {
+    let dobSearch = promptFor("Would you like to search by date of birth? Enter yes or no.", yesNo).toLowerCase();
 
+    switch(dobSearch){
+        case "yes":
+            let filterByDob = lookUpDob(people);
+            return filterByDob;
+        case "no":
+            return people;
+        default:
+            searchByDob(people);
+            break;
+    }
+}
 
+function 
 
 function searchByTraits(people) {
     let traits = "";
     let filteredList;
 
     filteredList = searchByGender(people);
-    filteredList = searchByDob();
-    filteredList = searchByHeight();
-    filteredList = searchByWeight();
-    filteredList = searchByEyeColor();
-    filteredList = searchByOccupation();
+    filteredList = searchByDob(filteredList);
+    filteredList = searchByHeight(filteredList);
+    filteredList = searchByWeight(filteredList);
+    filteredList = searchByEyeColor(filteredList);
+    filteredList = searchByOccupation(filteredList);
 
     if (filteredList.length === 22) {
         alert("Found no one to display.");
