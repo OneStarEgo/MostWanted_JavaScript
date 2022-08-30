@@ -211,6 +211,7 @@ function findSiblings(person, people) {
     return newArray;
 }
 
+
 function findSpouse(person, people) {
     let newArray = people.filter(function(el){
         if (el.currentSpouse == person.id){
@@ -219,6 +220,7 @@ function findSpouse(person, people) {
     });
     return newArray;
 }
+
 
 function findParents(person, people) {
     let newArray = people.filter(function(el){
@@ -229,13 +231,14 @@ function findParents(person, people) {
     return newArray;
 }
 
+
 function findDescendants(person, people) {
     let newArray = people.filter(function(el){
         if (el.parents[0] === person.id || el.parents[1] === person.id){
             return true;
         }
     });
-    return newArray
+    return newArray;
 }
 
 
@@ -244,25 +247,53 @@ function findPersonFamily(person, people) {
     let siblings = findSiblings(person,people);
     let spouse = findSpouse(person,people);
     let parents = findParents(person,people);
-    let descendants = findDescendants(person,people);
+    let children = findDescendants(person,people);
 
     if (siblings != null){
-        for(let i = 0; i < siblings.length; i ++){
+        for(let i = 0; i < siblings.length; i++){
             newArray += `siblings: ${siblings[i].firstName} ${siblings[i].lastName}\n`
         }
     }
     if (spouse != null){
-        for(let i = 0; i < spouse.length; i ++){
+        for(let i = 0; i < spouse.length; i++){
             newArray += `spouse: ${spouse[i].firstName} ${spouse[i].lastName}\n` 
         }
     }
     if (parents != null){
-        for(let i = 0; i < parents.length; i ++){
+        for(let i = 0; i < parents.length; i++){
             newArray += `parents: ${parents[i].firstName} ${parents[i].lastName}\n`
+        }
+    }
+    if (children != null){
+        for(let i = 0; i < spouse.length; i++){
+            newArray += `descendants: ${descendants[i].firstName} ${descendants[i].lastName}\n`
         }
     }
     return newArray;
 }
+
+
+function findPersonDescendants(person, people) {
+    let descendants = [];
+    let filteredChildren = "";
+
+    children = people.filter(function(el){
+        if(el.parents.length === 0){
+            return false;
+        }
+        else if(el.parents[0] === person.id || el.parents[1] === person.id){
+            return true;
+        }
+    });
+    for(let i = 0; i < descendants.length; i++){
+        filteredChildren += descendants[i].firstName + " " + descendants[i].lastName + " "
+    }
+    if(descendants.length === 0) {
+        filteredChildren = "No descendants found.";
+    }
+    return filteredChildren;
+}
+
 
 function lookUpGender(people) {
     let userInput = promptFor("What is the person's gender?", chars);
@@ -273,6 +304,7 @@ function lookUpGender(people) {
     });
     return genderFilteredArray;
 }
+
 
 function searchByGender(people) {
     let genderSearch = promptFor("Would you like to search by gender? Enter yes or no.", yesNo).toLowerCase();
@@ -289,6 +321,7 @@ function searchByGender(people) {
     }
 }
 
+
 function lookUpDob(people) {
     let userInput = promptFor("What is the person's date of birth?", chars);
     let dobFilteredArray = people.filter(function(el){
@@ -298,6 +331,7 @@ function lookUpDob(people) {
     });
     return dobFilteredArray;
 }
+
 
 function searchByDob(people) {
     let dobSearch = promptFor("Would you like to search by date of birth? Enter yes or no.", yesNo).toLowerCase();
@@ -314,6 +348,7 @@ function searchByDob(people) {
     }
 }
 
+
 function lookUpHeight(people) {
     let userInput = promptFor("What is the Height of the person?", chars);
     let heightFilteredArray = people.filter(function(el){
@@ -323,6 +358,7 @@ function lookUpHeight(people) {
     });
     return heightFilteredArray;
 }
+
 
 function searchByHeight(people) {
     let heightSearch = promptFor("Would you like to search by height? Enter yes or no.", yesNo).toLowerCase();
@@ -339,6 +375,7 @@ function searchByHeight(people) {
     }
 }
 
+
 function lookUpWeight(people) {
     let userInput = promptFor("What is the Weight of the person?", chars);
     let weightFilteredArray = people.filter(function(el){
@@ -348,6 +385,7 @@ function lookUpWeight(people) {
     });
     return weightFilteredArray;
 }
+
 
 function searchByWeight(people) {
     let weightSearch = promptFor("Would you like to search by weight? Enter yes or no.", yesNo).toLowerCase();
@@ -364,6 +402,7 @@ function searchByWeight(people) {
     }
 }
 
+
 function lookUpEyeColor(people) {
     let userInput = promptFor("What is the eye color of the person?", chars);
     let eyeColorFilteredArray = people.filter(function(el){
@@ -373,6 +412,7 @@ function lookUpEyeColor(people) {
     });
     return eyeColorFilteredArray;
 }
+
 
 function searchByEyeColor(people) {
     let eyeColorSearch = promptFor("Would you like to search by eye color? Enter yes or no.", yesNo).toLowerCase();
@@ -389,6 +429,7 @@ function searchByEyeColor(people) {
     }
 }
 
+
 function lookUpOccupation(people) {
     let userInput = promptFor("What is the occupation of the person?", chars);
     let occupationFilteredArray = people.filter(function(el){
@@ -398,6 +439,7 @@ function lookUpOccupation(people) {
     });
     return occupationFilteredArray;
 }
+
 
 function searchByOccupation(people) {
     let occupationSearch = promptFor("Would you like to search by occupation? Enter yes or no.", yesNo).toLowerCase();
@@ -413,6 +455,7 @@ function searchByOccupation(people) {
             break;
     }
 }
+
 
 function searchByTraits(people) {
     let traits = "";
