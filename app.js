@@ -229,12 +229,22 @@ function findParents(person, people) {
     return newArray;
 }
 
+function findDescendants(person, people) {
+    let newArray = people.filter(function(el){
+        if (el.parents[0] === person.id || el.parents[1] === person.id){
+            return true;
+        }
+    });
+    return newArray
+}
+
 
 function findPersonFamily(person, people) {
     let newArray = "";
     let siblings = findSiblings(person,people);
     let spouse = findSpouse(person,people);
     let parents = findParents(person,people);
+    let descendants = findDescendants(person,people);
 
     if (siblings != null){
         for(let i = 0; i < siblings.length; i ++){
