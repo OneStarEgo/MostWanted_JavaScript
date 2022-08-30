@@ -114,7 +114,7 @@ function searchByName(people) {
 
     // The foundPerson value will be of type Array. Recall that .filter() ALWAYS returns an array.
     let foundPerson = people.filter(function (person) {
-        if (person.firstName === firstName && person.lastName === lastName) {
+        if (person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()) {
             return true;
         }
     });
@@ -277,7 +277,7 @@ function findPersonDescendants(person, people) {
     let descendants = [];
     let filteredChildren = "";
 
-    children = people.filter(function(el){
+    descendants = people.filter(function(el){
         if(el.parents.length === 0){
             return false;
         }
