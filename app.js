@@ -329,6 +329,55 @@ function searchByHeight(people) {
     }
 }
 
+function lookUpWeight(people) {
+    let userInput = promptFor("What is the Weight of the person?", chars);
+    let weightFilteredArray = people.filter(function(el){
+        if(el.weight === userInput){
+            return true;
+        }
+    });
+    return weightFilteredArray;
+}
+
+function searchByWeight(people) {
+    let weightSearch = promptFor("Would you like to search by weight? Enter yes or no.", yesNo).toLowerCase();
+
+    switch(weightSearch){
+        case "yes":
+            let filterByWeight = lookUpWeight(people);
+            return filterByWeight;
+        case "no":
+            return people;
+        default:
+            searchByWeight(people);
+            break;
+    }
+}
+
+function lookUpEyeColor(people) {
+    let userInput = promptFor("What is the eye color of the person?", chars);
+    let eyeColorFilteredArray = people.filter(function(el){
+        if(el.eyeColor === userInput){
+            return true;
+        }
+    });
+    return eyeColorFilteredArray;
+}
+
+function searchByEyeColor(people) {
+    let eyeColorSearch = promptFor("Would you like to search by eye color? Enter yes or no.", yesNo).toLowerCase();
+
+    switch(eyeColorSearch){
+        case "yes":
+            let filterByEyeColor = lookUpEyeColor(people);
+            return filterByEyeColor;
+        case "no":
+            return people;
+        default:
+            searchByEyeColor(people);
+            break;
+    }
+}
 
 function searchByTraits(people) {
     let traits = "";
