@@ -379,6 +379,31 @@ function searchByEyeColor(people) {
     }
 }
 
+function lookUpOccupation(people) {
+    let userInput = promptFor("What is the occupation of the person?", chars);
+    let occupationFilteredArray = people.filter(function(el){
+        if(el.occupation === userInput){
+            return true;
+        }
+    });
+    return occupationFilteredArray;
+}
+
+function searchByOccupation(people) {
+    let occupationSearch = promptFor("Would you like to search by occupation? Enter yes or no.", yesNo).toLowerCase();
+
+    switch(occupationSearch){
+        case "yes":
+            let filterByOccupation = lookUpOccupation(people);
+            return filterByOccupation;
+        case "no":
+            return people;
+        default:
+            searchByOccupation(people);
+            break;
+    }
+}
+
 function searchByTraits(people) {
     let traits = "";
     let filteredList;
@@ -396,7 +421,7 @@ function searchByTraits(people) {
         alert("Found no one to display");
     } else {
         for(let i = 0; i < filteredList.length; i++) {
-            listed += filteredList[i].firstName + " " + filteredList[i].lastName + ".";
+            traits += filteredList[i].firstName + " " + filteredList[i].lastName + ".";
         }
         alert(traits)
     }
