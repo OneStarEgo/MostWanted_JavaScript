@@ -350,7 +350,7 @@ function searchByDob(people) {
 
 
 function lookUpHeight(people) {
-    let userInput = promptFor("What is the Height of the person?", chars);
+    let userInput = parseInt(promptFor("What is the Height of the person?", chars));
     let heightFilteredArray = people.filter(function(el){
         if(el.height === userInput){
             return true;
@@ -377,7 +377,7 @@ function searchByHeight(people) {
 
 
 function lookUpWeight(people) {
-    let userInput = promptFor("What is the Weight of the person?", chars);
+    let userInput = parseInt(promptFor("What is the Weight of the person?", chars));
     let weightFilteredArray = people.filter(function(el){
         if(el.weight === userInput){
             return true;
@@ -474,7 +474,7 @@ function searchByTraits(people) {
         alert("Found no one to display");
     } else {
         for(let i = 0; i < filteredList.length; i++) {
-            traits += filteredList[i].firstName + " " + filteredList[i].lastName + ".";
+            traits += filteredList[i].firstName + " " + filteredList[i].lastName + "\n";
         }
         alert(traits)
     }
